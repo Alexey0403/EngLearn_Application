@@ -1,0 +1,890 @@
+﻿<Window x:Class="EngApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EngApp"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="700" MinWidth="1200" Loaded="Window_Loaded" Width="1231.5">
+
+
+
+
+    <Window.Resources>
+        <Style x:Key="StyleHeaderButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="30,0,30,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <ContentControl FontSize="18"
+                                            FontWeight="Bold"
+                                           
+                                            Foreground="{TemplateBinding Foreground}"
+                                            Content="{TemplateBinding Content}"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                
+                            </ContentControl>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                
+                            </EventTrigger>
+                            
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                        From="LightGray"
+                                                        To="Gray"
+                                                        Duration="0:0:0.1"
+                                                        AutoReverse="False">
+
+
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Foreground" Value="LightGray"/>
+                                
+                            </Trigger>
+                            
+                            
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TheoryNavBar" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4">
+                            <ContentControl Foreground ="{TemplateBinding Foreground}"
+                                            Content="{TemplateBinding Content}"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center">
+                            </ContentControl>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="BorderBrush" Value="LightGray"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                            From="White"
+                                                            To="LightGray"
+                                                            Duration="0:0:0.1"
+                                                            AutoReverse="False">
+
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
+                                                            From="LightGray"
+                                                            To="Gray"
+                                                            Duration="0:0:0.1"
+                                                            AutoReverse="False">
+                                                
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BlueForeground" TargetType="{x:Type Button}" BasedOn="{StaticResource StyleHeaderButton}">
+            <Setter Property="Foreground" Value="#1CB0F6"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Foreground" Value="#1CB0F6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BlueSelectedButton" TargetType="{x:Type Button}" BasedOn="{StaticResource TheoryNavBar}">
+            <Setter Property="Background" Value="#1CB0F6"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#0892fe"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#1CB0F6"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="DataGrid">
+            <Setter Property="BorderBrush" Value="#DDDDDD" />
+            <Setter Property="HorizontalGridLinesBrush" Value="#DDDDDD" />
+            <Setter Property="VerticalGridLinesBrush" Value="#DDDDDD" />
+
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                           
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightCyan" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#ff66ccff" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="#ff66ccff" />
+                                <Setter Property="BorderBrush" Value="Black" />
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                        
+                        <Setter Property="Padding" Value="4,3,4,3" />
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Padding="{TemplateBinding Padding}" 
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FocusVisualStyle">
+                            <Setter.Value>
+                                <Style TargetType="Control">
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MainLessonButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                CornerRadius="90"
+                                BorderThickness="5">
+                            <ContentControl Content="{TemplateBinding Content}">
+
+                            </ContentControl>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger  Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
+                                                From="LightGray"
+                                                To="Gray"
+                                                Duration="0:0:0.1"
+                                                AutoReverse="False">
+
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="BorderBrush" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ProgressBar}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Background" Value="#6fae5f"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Padding" Value="5,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid Background="#00000000">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <PointAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)">
+                                                <EasingPointKeyFrame KeyTime="0:0:0" Value="0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:1.5" Value="1.95,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:3" Value="0.5,0.5"/>
+                                            </PointAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid Height="{TemplateBinding Height}">
+                                <Border Background="#000000" CornerRadius="7.5" Opacity="0.05"/>
+                                <Border BorderBrush="#000000" BorderThickness="1" CornerRadius="7.5" Opacity="0.1"/>
+                                <Grid Margin="{TemplateBinding BorderThickness}">
+                                    <Border x:Name="PART_Track"/>
+                                    <Grid x:Name="PART_Indicator" ClipToBounds="True" HorizontalAlignment="Left" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition x:Name="width1"/>
+                                            <ColumnDefinition x:Name="width2" Width="0"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid x:Name="Animation" RenderTransformOrigin="0.5,0.5">
+                                            <Grid.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleY="-1" ScaleX="1"/>
+                                                    <SkewTransform AngleY="0" AngleX="0"/>
+                                                    <RotateTransform Angle="180"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </Grid.RenderTransform>
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="7.5">
+                                                <Viewbox HorizontalAlignment="Left" StretchDirection="DownOnly" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                                                    <TextBlock Foreground="#ffffff" SnapsToDevicePixels="True" FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center">
+                                                        <TextBlock.RenderTransform>
+                                                            <TransformGroup>
+                                                                <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                                                                <SkewTransform AngleY="0" AngleX="0"/>
+                                                                <RotateTransform Angle="0"/>
+                                                                <TranslateTransform/>
+                                                            </TransformGroup>
+                                                        </TextBlock.RenderTransform>
+                                                    </TextBlock>
+                                                </Viewbox>
+                                            </Border>
+                                            <Border BorderBrush="#000000" BorderThickness="1" CornerRadius="7.5" Opacity="0.1"/>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#c5c5c5"/>
+                            </Trigger>
+                            <Trigger Property="IsIndeterminate" Value="true">
+                                <Setter TargetName="width1" Property="Width" Value="0.25*"/>
+                                <Setter TargetName="width2" Property="Width" Value="0.725*"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ResultButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10"
+                                >
+                            <ContentControl Content="{TemplateBinding Content}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="Gray"
+                                            FontWeight="Bold"
+                                            FontSize="16">
+                                
+                            </ContentControl>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="false">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="AnswerButtons" TargetType="{x:Type Button}" BasedOn="{StaticResource ResultButton}">
+            <Setter Property="MinWidth" Value="50"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+           
+        </Style>
+        
+        
+
+    </Window.Resources>
+
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0" Name="Lesson"  Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+                <Grid  Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Height="50" Margin="0,50,0,0" >
+                    <ProgressBar Name="progressBar" VerticalAlignment="Center" HorizontalAlignment="Center" Width="800" Minimum="0" Maximum="100">
+                        
+                    </ProgressBar>
+                </StackPanel>
+                <StackPanel Name="PanelQuestion" VerticalAlignment="Center" Grid.Row="1" HorizontalAlignment="Left" Margin="350,0,350,0">
+                    <TextBlock Margin="0,0,0,50" FontSize="28" Foreground="#333" FontWeight="Bold" TextWrapping="Wrap" Text="Перекладіть :)"></TextBlock>
+                    <StackPanel Name="ImageContent" Orientation="Horizontal">
+                        <Image Name="ImageQuestion" Visibility="Visible" Width="100" Source="Images/man.png"/>
+                        <Label FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center" Background="Transparent">
+                            <Border Background="Transparent" CornerRadius="15" BorderThickness="1" BorderBrush="LightGray">
+                                <TextBlock Name="QuestionLabel" Padding="10" FontSize="16"></TextBlock>
+                            </Border>
+                        </Label>
+                    </StackPanel>
+                </StackPanel >
+                <StackPanel Margin="350,0,350,0" Grid.Row="2" Height="220">
+                    <StackPanel Name="ButtonAnswer" Visibility="Collapsed">
+                        <Border Height="50" BorderBrush="#777" BorderThickness="0,0.3,0,0.3">
+                            <Label Name="AnswerLabel" Margin="5" BorderBrush="Transparent" BorderThickness="0">
+                            
+                            </Label>
+                        </Border>
+                    </StackPanel>
+                    
+                    <StackPanel Name="TextAnswer" Visibility="Visible">
+                        <Border Height="150" BorderBrush="#777" CornerRadius="10" BorderThickness="0.3">
+                            <TextBox Name="AnswerBox" Margin="10" FontSize="16"  BorderBrush="Transparent" BorderThickness="0">
+
+                            </TextBox>
+                        </Border>
+                    </StackPanel>
+                   
+                    <StackPanel >
+                        
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Name="FooterQuestion" Grid.Row="1" Height="160">
+                
+                <StackPanel >
+                    <Border BorderThickness="0,1,0,0" BorderBrush="LightGray">
+                        <StackPanel  Width="1000" Orientation="Horizontal" >
+                            <StackPanel Name="footerLabel" Visibility="Hidden" Margin="100,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="140" Width="700" Orientation="Horizontal">
+                                <Image Name="footerImage" Width="50" Source="Images/cancel.png"/>
+                                <StackPanel Margin="10" Orientation="Vertical">
+                                    <Label Name="footerLabelResult" FontSize="24" FontWeight="Bold">Правильно</Label>
+                                    <Label Name="footerLabelAnswer" FontSize="16">Правильна відповідь:</Label>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Button Name="resultButton" Cursor="Hand" Style="{StaticResource ResultButton}" Width="140" Height="40" Content="Перевірити" Click="ResultClick"></Button>
+                                <Button Visibility="Collapsed" Name="nextButton" Cursor="Hand" Style="{StaticResource ResultButton}" Width="140" Height="40" Content="Наступне" Click="NextClick"></Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            
+        </Grid>
+
+
+
+        <Grid Name="MainContent" Grid.Row="1" Visibility="Visible">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="Header" >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="*"/>
+                    <ColumnDefinition  Width="0.6*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.ColumnSpan="2" BorderBrush="LightGray" BorderThickness="0,0,0,1" />
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Button Name="HeaderMainButton" Style="{StaticResource StyleHeaderButton}"  Content="ГОЛОВНА" MinWidth="30" MinHeight="30"  Click="HeaderMainButton_Click">
+
+                    </Button>
+
+                    <Button Name="HeaderVocabularyButton" Style="{StaticResource StyleHeaderButton}" Content="СЛОВНИК" Click="HeaderVocabularyButton_Click">
+
+                    </Button>
+
+                    <Button Name="HeaderTheoryticalButton" Style="{StaticResource StyleHeaderButton}" Content="ТЕОРІЯ" Click="HeaderTheoryticalButton_Click">
+
+                    </Button>
+
+                </StackPanel>
+
+
+
+
+
+
+
+            </Grid>
+
+            <Grid Grid.Row="1" Name="Content">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+
+
+                <Grid Grid.Row="0" Name="MainPage"  Visibility="Visible" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="*"/>
+                        <ColumnDefinition  Width="0.6*"/>
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+
+                        <StackPanel Grid.Row="0" Margin="15" HorizontalAlignment="Center">
+                            <Label FontWeight="Bold" FontSize="18" Foreground="Gray" Content="Оберіть урок" />
+                        </StackPanel>
+                        <ScrollViewer Margin="50,10,50,0" Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+                            <WrapPanel HorizontalAlignment="Center" Grid.Row="1">
+                                <StackPanel Margin="0,0,20,40" Orientation="Horizontal">
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Button Name="Lesson1Button" Click="LessonSelect" Style="{StaticResource MainLessonButton}">
+                                            <Border Margin="-5" Background="#1CB0F6" BorderThickness="10" CornerRadius="90">
+                                                <Image Margin="10" Width="50" Source="Images/lvl1.png"/>
+                                            </Border>
+                                        </Button>
+                                        <TextBlock FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#3c3c3c" Text="Основи"/>
+                                    </StackPanel>
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Border BorderThickness="0,0,0,1" BorderBrush="Gray">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button  Click="HeaderTheoryticalButton_Click" BorderThickness="0" Background="Transparent" Cursor="Hand"  Width="100" Margin="20,0,0,0" FontWeight="Bold" FontSize="18" Height="35" Content="Теорія"></Button>
+
+                                                <Label Name="label1content" Visibility="Hidden" Foreground="Green" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalAlignment="Bottom" Height="35" Width="120" FontSize="20" BorderBrush="Gray"  Content="0/3"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,20,40" Orientation="Horizontal">
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Button Name="Lesson2Button" Click="LessonSelect" Style="{StaticResource MainLessonButton}">
+                                            <Border Margin="-5" Background="#1CB0F6" BorderThickness="10" CornerRadius="90">
+                                                <Image Margin="10" Width="50" Source="Images/lvl2.png"/>
+                                            </Border>
+                                        </Button>
+                                        <TextBlock FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#3c3c3c" Text="Їжа"/>
+                                    </StackPanel>
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Border BorderThickness="0,0,0,1" BorderBrush="Gray">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Visibility="Hidden" Click="HeaderTheoryticalButton_Click" BorderThickness="0" Background="Transparent" Cursor="Hand"  Width="100" Margin="20,0,0,0" FontWeight="Bold" FontSize="18" Height="35" Content="Теорія"></Button>
+
+                                                <Label Name="label2content" Visibility="Hidden" Foreground="Green" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalAlignment="Bottom" Height="35" Width="120" FontSize="20" BorderBrush="Gray"  Content="0/3"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,20,40" Orientation="Horizontal">
+                                    <StackPanel  VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Button Name="Lesson3Button" Click="LessonSelect" Style="{StaticResource MainLessonButton}">
+                                            <Border Margin="-5" Background="#1CB0F6" BorderThickness="10" CornerRadius="90">
+                                                <Image Margin="10" Width="50" Source="Images/lvl3.png"/>
+                                            </Border>
+                                        </Button>
+                                        <TextBlock FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#3c3c3c" Text="Тварини"/>
+                                    </StackPanel>
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Border BorderThickness="0,0,0,1" BorderBrush="Gray">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Visibility="Hidden" Click="HeaderTheoryticalButton_Click" BorderThickness="0" Background="Transparent" Cursor="Hand"  Width="100" Margin="20,0,0,0" FontWeight="Bold" FontSize="18" Height="35" Content="Теорія"></Button>
+
+                                                <Label Name="label3content" Visibility="Hidden" Foreground="Green" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalAlignment="Bottom" Height="35" Width="120" FontSize="20" BorderBrush="Gray"  Content="0/3"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,20,40" Orientation="Horizontal">
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Button Name="Lesson4Button" Click="LessonSelect" Style="{StaticResource MainLessonButton}">
+                                            <Border Margin="-5" Background="#1CB0F6" BorderThickness="10" CornerRadius="90">
+                                                <Image Margin="10" Width="50" Source="Images/lvl4.png"/>
+                                            </Border>
+                                        </Button>
+                                        <TextBlock FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#3c3c3c" Text="Фрази"/>
+                                    </StackPanel>
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Border BorderThickness="0,0,0,1" BorderBrush="Gray">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Visibility="Hidden" Click="HeaderTheoryticalButton_Click" BorderThickness="0" Background="Transparent" Cursor="Hand"  Width="100" Margin="20,0,0,0" FontWeight="Bold" FontSize="18" Height="35" Content="Теорія"></Button>
+
+                                                <Label Name="label4content" Visibility="Hidden" Foreground="Green" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalAlignment="Bottom" Height="35" Width="120" FontSize="20" BorderBrush="Gray"  Content="0/3"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,20,40" Orientation="Horizontal">
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Button Name="Lesson5Button" Click="LessonSelect" Style="{StaticResource MainLessonButton}">
+                                            <Border Margin="-5" Background="#1CB0F6" BorderThickness="10" CornerRadius="90">
+                                                <Image Margin="10" Width="50" Source="Images/lvl5.png"/>
+                                            </Border>
+                                        </Button>
+                                        <TextBlock FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#3c3c3c" Text="Множина"/>
+                                    </StackPanel>
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Border BorderThickness="0,0,0,1" BorderBrush="Gray">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Click="HeaderTheoryticalButton_Click" BorderThickness="0" Background="Transparent" Cursor="Hand"  Width="100" Margin="20,0,0,0" FontWeight="Bold" FontSize="18" Height="35" Content="Теорія"></Button>
+
+                                                <Label Name="label5content" Visibility="Hidden" Foreground="Green" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalAlignment="Bottom" Height="35" Width="120" FontSize="20" BorderBrush="Gray"  Content="0/3"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                            </WrapPanel>
+                        </ScrollViewer>
+
+                    </Grid>
+
+
+
+                    <Grid   Grid.Column="1" Margin="30, 30, 30, 0">
+                        <Border BorderBrush="#ffc368" BorderThickness="0,0,0,3" CornerRadius="25" Background="#ff9942" MinHeight="500">
+
+                            <StackPanel>
+
+                                <Image Source="Images\owl.png" Width="90" Margin="0,40,0,0"/>
+
+                                <TextBlock Margin="10,20,10,15" FontSize="24" FontWeight="Bold" Foreground="White" TextAlignment="Center">Головна</TextBlock>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                </StackPanel>
+
+                                <TextBlock Margin="10,15,10,0" TextAlignment="Center" FontSize="18" TextWrapping="Wrap" Foreground="#fafaff">Головна сторінка. На цій сторінці ви можете обрати урок на якому зупинилися та прочитати теорію за темою урока. Якщо ви не читали теорії, рекомендуємо зробити це у першу чергу. Удачі!</TextBlock>
+
+                                <Rectangle Margin="0,30,0,0" Height="2" RadiusX="2" RadiusY="2" Width="120" Fill="White"></Rectangle>
+
+                            </StackPanel>
+
+                        </Border>
+                    </Grid>
+
+                </Grid>
+
+                <Grid Name="VocabularyPage" Grid.Row="1"  Visibility="Collapsed" >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="*"/>
+                        <ColumnDefinition  Width="0.6*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Margin="10" HorizontalAlignment="Center" Grid.Row="0" Orientation="Horizontal">
+                            <Label FontSize="16" FontWeight="Bold" Foreground="Gray" Content="Пошук слова:"/>
+                            <Border BorderBrush="#777" CornerRadius="7" BorderThickness="1">
+                                <TextBox Name="TextVocabulary" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" BorderThickness="0" Width="100" TextChanged="TextBox_TextChanged"/>
+                            </Border>
+                        </StackPanel>
+
+                        <DataGrid  CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionMode="Single" FontSize="16" Grid.Row="1" AutoGenerateColumns="False" x:Name="VocabularyGrid" HorizontalAlignment="Center" IsReadOnly="True" Height="480" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" VerticalAlignment="Top" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Foreground="Gray"  Binding="{Binding EngWord}" Width="300" Header="Англійською"/>
+                                <DataGridTextColumn Foreground="Gray"  Binding="{Binding UaWord}" Width="300" Header="Украінською"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+
+
+
+                    <Grid  Grid.Column="1" Margin="30, 30, 30, 0">
+                        <Border BorderBrush="#1fca25" BorderThickness="0,0,0,3" CornerRadius="25" Background="#1fa225" Height="500">
+
+                            <StackPanel>
+
+                                <Image Source="Images\dictionary.png" Width="90" Margin="0,40,0,0"/>
+
+                                <TextBlock Margin="10,20,10,15" FontSize="24" FontWeight="Bold" Foreground="White" TextAlignment="Center">Словник</TextBlock>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                </StackPanel>
+
+                                <TextBlock Margin="10,15,10,0" TextAlignment="Center" FontSize="18" TextWrapping="Wrap" Foreground="#fafaff"></TextBlock>
+
+                                <Rectangle Margin="0,30,0,0" Height="2" RadiusX="2" RadiusY="2" Width="120" Fill="White"></Rectangle>
+
+                            </StackPanel>
+
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2" Name="TheoryticalPage" Visibility="Collapsed">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="*"/>
+                        <ColumnDefinition  Width="0.6*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid  Grid.Column="0">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <WrapPanel Grid.Row="0" HorizontalAlignment="Center" Margin="15">
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">1</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">2</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">3</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">4</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">5</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">6</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">7</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">8</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">9</Button>
+                            <Button Click="NavBarTheoryClick" Style="{StaticResource TheoryNavBar}">10</Button>
+                        </WrapPanel>
+
+                        <StackPanel Name="sp1" Margin="50,0,0,0" Grid.Row="1" Height="500"  Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Про артикль</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> Артикль — це частина мови, яке визначає особливості іменника.<LineBreak/><LineBreak/>В англійській мові існує два види артиклів: означений the, і неозначений a (перед приголосними) / an (перед голосними).<LineBreak/><LineBreak/>Артикль a/an вживається перед злічуваними іменниками в однині 1) при першому згадуванні в даній ситуації, 2) в значенні «один», 3) в значенні "один із класу", 4) в деякий стійких словосполученнях<LineBreak/><LineBreak/>Артикль the вживається, коли ми говоримо про щось, про що ми вже згадували в цьому контексті, або якщо співбесідник у курсі, про який саме предмет іде мова. В таких ситуаціях можливий переклад the як цей/ця.<LineBreak/><LineBreak/>Як приклад, коли людина каже I have a book, то має на увазі книжку, про яку співбесідник, мабуть, нічого не знає. Українською - "Я маю книжку".<LineBreak/><LineBreak/>Якщо ж ми чуємо I have the book, то ми розуміємо, що мається на увазі книжка, що вже була згадана у цьому діалозі, або співбесідник знає, про яку книжку мова. Українською - "Я маю цю книжку (про яку йдеться)". Або те саме значення можна виразити порядком слів. Порівняйте:<LineBreak/><LineBreak/>I have a book - У мене є книжка<LineBreak/><LineBreak/>I have the book - Книжка у мене!<LineBreak/><LineBreak/>Англійською порядок слів більш-менш фіксований, тому артиклі часто виражають те, що ми можемо виразити за допомогою інших мовних засобів.<LineBreak/><LineBreak/>Артикль the також вживається з іменниками які є єдиними у свому роді (the sun, the moon, the Eiffel Tower). З назвами: кінотеатрів, музеїв, театрів, готелів, ресторанів, газет, журналів, кораблів, закладів, річок, морів, океанів, каналів, гірських хребтів, груп островів, пустель; з назвами або іменниками з of (the Tower of London, the Statue of Liberty). Коли в реченні є додаткова конкретизація, тобто, означення, яке конкретно визначає іменник (The summer of 2010. This is the book I told you about). Перед порядковими числівниками (the first, the second) та прикметниками у найвищому ступені порівняння (This is the best restaurant in New York).
+
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp2" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Про множину.</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> Іменники в англійській мові мають дві форми: однину та множину.<LineBreak/><LineBreak/>A boy – хлопець/хлопчик <LineBreak/> An apple – яблуко <LineBreak/><LineBreak/>Зазвичай, для утворення множини необхідно просто додати закінчення -s (-es):<LineBreak/><LineBreak/>Many boys - багато хлопців <LineBreak/> Six apples – шість яблук<LineBreak/><LineBreak/>Проте, деякі іменники є винятком з правила: їхня множина утворюється не за допомогою додавання закінчення, а за допомогою зміни всередині слова або додавання спеціального закінчення. Ці іменники треба запам’ятати:<LineBreak/><LineBreak/>A man (чоловік) – men (чоловіки)<LineBreak/>A woman (жінка) – women (жінки)<LineBreak/>A child (дитина) – children (діти)
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp3" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Про теперішній час.</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> Щоб сказати щось у Простому Теперішньому Часі Present Simple, треба використати дієслово у першій його формі (як воно пишеться у словнику) без частки to. Наприклад:<LineBreak/><LineBreak/>To read - читати<LineBreak/><LineBreak/>I read a newspaper - Я читаю газету<LineBreak/>We read a newspaper - Ми читаємо газету<LineBreak/><LineBreak/>При цьому варто мати на увазі, що при утворенні Present Simple з займенниками he (він), she (вона), it (воно) до дієслова потрібно додавати закінчення -s. Наприклад:<LineBreak/><LineBreak/>He reads the menu - Він читає (це) меню.<LineBreak/>She reads a book - Вона читає книжку.<LineBreak/><LineBreak/>Дієслово to have (мати) у Простому Теперішньому Часі Present Simple має дві форми:<LineBreak/><LineBreak/>Have, що вживається з особами I, we, you, they.<LineBreak/>Has, що вживається лише з третьою особою однини he, she, it.<LineBreak/><LineBreak/>I have an apple - У мене є яблуко.<LineBreak/>You have bread - У вас/тебе є хліб.<LineBreak/>They have water - У них є вода.<LineBreak/>She has a book - У неї є книжка.<LineBreak/>He has a child - У нього є дитина.
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp4" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Ще трохи про артиклі.</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> Слова-іменники можна поділити на злічувані та незлічувані. Незлічувані – це ті, які неможливо порахувати, вони не мають множини. Наприклад – цукор (не скажемо три цукри), сіль, м’ясо, їжа.<LineBreak/><LineBreak/>Так ось, із незлічуваними іменниками НІКОЛИ не використовується неозначений артикль a/an. Незлічувані іменники використовуються або з означеним артиклем the, або взагалі без артикля. Наприклад - I eat beef, he eats pork (Я їм яловичину, він їсть свинину).<LineBreak/><LineBreak/>Щодо злічуваних іменників, неозначений артикль використовується перед такими словами, що означають речі чи явища, які з'являються в розмові вперше, а коли вже відомо, про що йде мова, використовується означений артикль. Наприклад - I had an orange and an egg for breakfast yesterday. The orange was very tasty. (Я їв/їла апельсин і яйце на сніданок вчора. Апельсин був дуже смачний).<LineBreak/><LineBreak/>Коли ми хочемо назвати предмет чи особу, які відомі з контексту або додатково уточнити якусь деталь, ми використовуємо означений артикль the. Перекласти артикль в такому випадку іноді можна як вказівний займенник цей/ця. Наприклад – Pass me the salt, please (Передайте мені сіль. будь ласка, (сіль, яка зараз на столі, за яким ми сидимо)). The cheese is really tasty! (Сир справді смачний/Цей сир справді смачний! (сир, який ми зараз їмо чи про який почали говорити)).<LineBreak/><LineBreak/>Останній випадок взятий як основа за замовчуванням на Дуолінго. Оскільки дані тут речення знаходяться поза контекстом і щоб уникнути плутанини, правильним перекладом речень типу The children eat pasta буде Ці діти їдять макарони
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp5" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Про множину.</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> В англійській мові для утворення множини більшості іменників додається закінчення –s:<LineBreak/><LineBreak/>Cats (коти), dogs (собаки), books (книжки).<LineBreak/><LineBreak/>До іменників, що закінчуються на -s, -ss, -x, -sh, -ch, -tch додається закінчення -es:<LineBreak/><LineBreak/>Sandwich - sandwiches (бутерброди).
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp6" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Про «нульовий» артикль.</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> «Нульовим» артиклем в англійській мові називаються випадки, коли не використовується жоден з артиклів: ні неозначений a/an, ні означений the. Це трапляється перед незлічуваними (water, rice, sugar), множинними або абстрактними іменниками, що позначають невизначені поняття, або поняття взагалі.<LineBreak/><LineBreak/>I drink juice (Я п’ю сік. Тобто, просто ЯКИЙСЬ сік, або ж я ВЗАГАЛІ його п’ю).<LineBreak/><LineBreak/>They have books (Вони мають книжки. Тобто, у них є ЯКІСЬ книжки, або ВЗАГАЛІ є)<LineBreak/><LineBreak/>He likes music.(Йому подобається музика. Тобто, йому ВЗАГАЛІ подобається слухати музику).
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp7" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Про присвійну форму.</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> Є дві форми англійських присвійних займенників – звичайна та абсолютна.<LineBreak/><LineBreak/>Звичайні присвійні займенники (їх ще називають притягальними) ЗАВЖДИ використовуються тільки разом з відповідним іменником і ставляться перед іменником.<LineBreak/><LineBreak/>Наприклад – This is my book (Це моя книга). It is her cat (Це її кішка).<LineBreak/><LineBreak/>Також Присвійні займенники в англійській мові часто використовуються там, де в українській їх не кажуть, але мають на увазі. Перед іменником, що означає частини тіла, предмети, одяг, родинні відносини, вони не перекладаються. Наприклад – He puts his hat on (Він одягає шапку). I told my sister about it (Я розповів сестрі про це).<LineBreak/><LineBreak/>Абсолютна форма – це займенник без іменника.<LineBreak/><LineBreak/>Абсолютні присвійні займенники у реченні виконують функції підмета, додатка, предикатива або означення. Наприклад – The book is mine (Ця книга моя). They are not yours (Вони не твої). -Where are all our books? -Mine are here. (- Де всі наші книжки? –Мої тут).<LineBreak/><LineBreak/>Отже, займенники звичайної форми (займенник + іменник) – my, his, her, its, our, your, their. Займенники абсолютної форми (займенник без іменника) – mine, his, hers, its, ours, yours, theirs.<LineBreak/><LineBreak/>ЗВЕРНІТЬ УВАГУ: присвійний займенник its (його, її, свій – про тварин і речі) пишеться без апострофа, тому не плутайте його з it’s - скороченою формою словосполучення it is.<LineBreak/><LineBreak/>Є в англійській і присвійний відмінок. Він виражає належність предмету до чогось або когось. Для утворення присвійного відмінка потрібно додати апостроф та літеру s в кінці. Наприклад – The student‘s book (Книга цього студента). The girl’s cat (Кіт цієї дівчини).
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp8" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Про множину іменників</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> Як ви вже знаєте, множина іменників в англійській мові утворюється додаванням закінчення –s(-es):<LineBreak/><LineBreak/>shirt - shirts (сорочки/блузи)<LineBreak/>skirt – skirts (спідниці)<LineBreak/>dress – dresses (сукні)<LineBreak/><LineBreak/>Деякі іменники вживаються лише у множині:<LineBreak/><LineBreak/>pants – (штани/панталони)<LineBreak/>clothes – (одяг)<LineBreak/><LineBreak/>Не забувайте, що у Простому Теперішньому Часі (Present Simple) у реченнях із займенниками he (він), she (вона), it (воно) до дієслова потрібно додавати закінчення -s. Наприклад:<LineBreak/><LineBreak/>I wear an orange dress (Я ношу помаранчеву сукню)<LineBreak/>She wears an orange dress (Вона носить помаранчеву сукню)<LineBreak/>They wear shirts (Вони носять сорочки)<LineBreak/>He wears shirts (Він носить сорочки)
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp9" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Запитання</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> ЗАГАЛЬНЕ ЗАПИТАННЯ є найпростішим. Це питання передбачає як відповідь або “так“, або “ні“.<LineBreak/><LineBreak/>Формула: допоміжне дієслово + підмет + смислове дієслово + додаток<LineBreak/><LineBreak/>Do you have children? (Ви маєте дітей?) Does she read this book? (Вона читає цю книгу?) (“does” вживається в теперішньому часі з “he/she”)<LineBreak/><LineBreak/>СПЕЦІАЛЬНЕ ЗАПИТАННЯ – це запитання для отримання додаткової інформації. Це питання завжди розпочинається з питального слова («що», «де», «коли», «чому», «як», «чий»), а далі вже йде допоміжне дієслово.<LineBreak/><LineBreak/>Where are they? (Де вони?) What do you like? (Що вам подобається?) How does he cook borsch? (Як він готує борщ?)<LineBreak/><LineBreak/>“What” може перекладатись не тільки як “що”, а також “який/яка/яке/які”. В останньому випадку після «what» слідує іменник.<LineBreak/><LineBreak/> What dress does she wear? (Яке плаття вона носить?) What color is the skirt? (Який колір цієї спідниці? / Якого кольору ця спідниця?) What books do you read? (Які книги ви читаєте?)
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Name="sp10" Margin="50,0,0,0" Grid.Row="1" Height="500" Visibility="Collapsed">
+                            <Border  CornerRadius="5" Padding="20,0,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" FontWeight="Bold" Foreground="#3c3c3c" Margin="0,0,0,15">Прийменники</TextBlock>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="460">
+                                        <TextBlock FontSize="15" TextWrapping="Wrap"> IN здебільшого позначає розташування чогось/когось У приміщенні/місті/країні, або ВСЕРЕДИНІ чогось.<LineBreak/><LineBreak/>ON позначає розташування НА чомусь.<LineBreak/><LineBreak/>AT вживають тоді, коли мають на увазі подію, на якій хтось перебуває або щось відбувається.<LineBreak/><LineBreak/>ПРИКЛАДИ: They are in the kitchen (Вони в/на кухні) She is in New York (Вона в Нью-Йорку) My cat sleeps in this box (Мій кіт спить у цій коробці) Apples are on the plate (Яблука на тарілці) My cat is on the roof (Мій кіт на даху) They are at lunch (Вони на обіді) He is at a meeting (Він на зустрічі)<LineBreak/><LineBreak/>УСТАЛЕНІ СЛОВОСПОЛУЧЕННЯ З «AT»:<LineBreak/><LineBreak/>at the station/airport (на вокзалі/в аеропорту) at home/work/school (вдома/на роботі/у школі)<LineBreak/><LineBreak/>FOR має значення ДЛЯ (I have something for you - У мене є щось для тебе), а також може перекладатися як «за» у таких виразах:<LineBreak/><LineBreak/>thank for (дякувати за…) pay for (платити за…) vote for (голосувати за...)<LineBreak/><LineBreak/>EXCEPT (FOR) (крім, окрім, за винятком) Якщо речення починається з EXCEPT, то вживаємо його разом з FOR (Except for the weather nothing changed - Окрім погоди нічого не змінилось). Перед прийменниками та сполучниками вживаємо лише EXCEPT (I can sleep everywhere except on a bus - Я можу спати будь-де, крім, хіба що, автобусів. He is a nice person except when he is hungry - Він приємна людина, крім випадків, коли він голодний). В решті ситуацій можна вживати обидва варіанти — з FOR і без FOR.<LineBreak/><LineBreak/>DURING (протягом/під час) і AS (в той час як) мають схоже значення. Прийменник during використовується з іменниками during lunch (під час обіду), during the meal (під час їжі). Прийменник as використовується щоб додати речення: You read as I write (Ви читаєте в той час, як я пишу) He plays as I work. (Він грає в той час, як я працюю).<LineBreak/><LineBreak/>BY і NEAR мають майже однакове значення (біля, коло), проте прийменник by використовується, коли щось знаходиться у безпосередній близькості, а near, коли щось знаходиться відносно недалеко.<LineBreak/><LineBreak/>ПРИКЛАДИ: The book is by the newspaper.(Ця книга біля цієї газети) She walks by me. (Вона ходить біля мене) The girl sleeps near the cat. (Ця дівчина спить біля цього кота).
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Name="EmptySpace" Margin="30" Grid.Row="1" HorizontalAlignment="Center" Visibility="Visible" Height="440">
+                            <Image Width="200" Source="Images/lens.png"/>
+                            <TextBlock Foreground="#3c3c3c" FontWeight="Bold" FontSize="24">Оберіть сторінку...</TextBlock>
+                        </StackPanel>
+
+                    </Grid>
+
+
+                    <Grid Grid.Column="1" Margin="30, 30, 30, 0">
+                        <Border BorderBrush="#0892fe" BorderThickness="0,0,0,3" CornerRadius="25" Background="#1CB0F6" MinHeight="500">
+
+                            <StackPanel>
+
+                                <Image Source="Images\books.png" Width="90" Margin="0,40,0,0"/>
+
+                                <TextBlock Margin="10,20,10,15" FontSize="24" FontWeight="Bold" Foreground="White" TextAlignment="Center">Теорія</TextBlock>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                    <Ellipse Fill="White" Width="6" Height="6" Margin="3,0,3,0"></Ellipse>
+                                </StackPanel>
+
+                                <TextBlock Margin="10,15,10,0" TextAlignment="Center" FontSize="18" TextWrapping="Wrap" Foreground="#fafaff">На даній сторінці ви знайдете необхідні дані для вивчення та закріплення знань з англійської мови. Рекомендується перед проходженням тестів.</TextBlock>
+
+                                <Rectangle Margin="0,30,0,0" Height="2" RadiusX="2" RadiusY="2" Width="120" Fill="White"></Rectangle>
+
+                            </StackPanel>
+
+                        </Border>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Name="Footer"  Visibility="Collapsed">
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+
+</Window>

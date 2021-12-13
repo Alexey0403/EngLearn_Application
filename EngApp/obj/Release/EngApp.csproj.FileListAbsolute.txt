@@ -1,0 +1,17 @@
+D:\Project\C#\EngApp\EngApp\obj\Release\App.g.cs
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp_MarkupCompile.cache
+D:\Project\C#\EngApp\EngApp\bin\Release\EngApp.exe.config
+D:\Project\C#\EngApp\EngApp\bin\Release\EngApp.exe
+D:\Project\C#\EngApp\EngApp\bin\Release\EngApp.pdb
+D:\Project\C#\EngApp\EngApp\obj\Release\MainWindow.baml
+D:\Project\C#\EngApp\EngApp\obj\Release\MainWindow.g.cs
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp.g.resources
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp.Properties.Resources.resources
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp.csproj.GenerateResource.cache
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp.csproj.CoreCompileInputs.cache
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp.exe
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp.pdb
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp_MarkupCompile.lref
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp.csprojAssemblyReference.cache
+D:\Project\C#\EngApp\EngApp\bin\Release\Словарь_log.ldf
+D:\Project\C#\EngApp\EngApp\obj\Release\EngApp_Content.g.cs

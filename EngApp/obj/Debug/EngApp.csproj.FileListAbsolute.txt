@@ -1,0 +1,13 @@
+D:\Project\C#\EngApp\EngApp\obj\Debug\App.g.cs
+D:\Project\C#\EngApp\EngApp\obj\Debug\EngApp_MarkupCompile.cache
+D:\Project\C#\EngApp\EngApp\bin\Debug\EngApp.exe.config
+D:\Project\C#\EngApp\EngApp\bin\Debug\EngApp.exe
+D:\Project\C#\EngApp\EngApp\bin\Debug\EngApp.pdb
+D:\Project\C#\EngApp\EngApp\obj\Debug\MainWindow.baml
+D:\Project\C#\EngApp\EngApp\obj\Debug\MainWindow.g.cs
+D:\Project\C#\EngApp\EngApp\obj\Debug\EngApp.g.resources
+D:\Project\C#\EngApp\EngApp\obj\Debug\EngApp.Properties.Resources.resources
+D:\Project\C#\EngApp\EngApp\obj\Debug\EngApp.csproj.GenerateResource.cache
+D:\Project\C#\EngApp\EngApp\obj\Debug\EngApp.csproj.CoreCompileInputs.cache
+D:\Project\C#\EngApp\EngApp\obj\Debug\EngApp.exe
+D:\Project\C#\EngApp\EngApp\obj\Debug\EngApp.pdb

@@ -1,0 +1,2 @@
+D:\Project\C#\EngApp\EngApp\obj\x86\App.g.cs
+D:\Project\C#\EngApp\EngApp\obj\x86\EngApp_MarkupCompile.cache
